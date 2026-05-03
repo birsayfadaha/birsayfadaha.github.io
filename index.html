@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bir Sayfa Daha</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0b0b0b;
+  color: #fff;
+}
+
+/* HEADER */
+header {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(black, #111);
+}
+
+header h1 {
+  font-size: 42px;
+}
+
+header p {
+  color: #aaa;
+}
+
+/* SEARCH */
+.search-box {
+  text-align: center;
+  margin: 20px;
+}
+
+.search-box input {
+  padding: 12px;
+  width: 300px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+/* CATEGORY */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+
+.categories button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.categories button:hover {
+  background: #444;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* CARD */
+.card {
+  background: #1a1a1a;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card iframe {
+  width: 100%;
+  height: 180px;
+}
+
+.card h3 {
+  padding: 10px;
+}
+
+.card span {
+  padding: 0 10px 10px;
+  display: block;
+  color: #aaa;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>📖 Bir Sayfa Daha</h1>
+  <p>Sesli kitaplar • Hikayeler • Klasikler</p>
+</header>
+
+<div class="search-box">
+  <input type="text" id="search" placeholder="Kitap ara...">
+</div>
+
+<div class="categories">
+  <button onclick="filterCategory('all')">Tümü</button>
+  <button onclick="filterCategory('roman')">Roman</button>
+  <button onclick="filterCategory('oyku')">Öykü</button>
+  <button onclick="filterCategory('klasik')">Klasik</button>
+</div>
+
+<section class="grid" id="videoGrid">
+
+  <div class="card" data-category="roman">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+    <h3>Dönüşüm</h3>
+    <span>Franz Kafka</span>
+  </div>
+
+  <div class="card" data-category="oyku">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+    <h3>Kağnı</h3>
+    <span>Sabahattin Ali</span>
+  </div>
+
+  <div class="card" data-category="klasik">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+    <h3>Bilinmeyen Bir Kadının Mektubu</h3>
+    <span>Stefan Zweig</span>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Bir Sayfa Daha - Yusuf Kızılca
+</footer>
+
+<script>
+const searchInput = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("keyup", function () {
+  let value = this.value.toLowerCase();
+
+  cards.forEach(card => {
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(value) ? "block" : "none";
+  });
+});
+
+function filterCategory(category) {
+  cards.forEach(card => {
+    if (category === "all") {
+      card.style.display = "block";
+    } else {
+      card.style.display =
+        card.getAttribute("data-category") === category
+          ? "block"
+          : "none";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
