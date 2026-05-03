@@ -6,111 +6,97 @@
 <title>Bir Sayfa Daha</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0b0b0b;
-  color: white;
+body{
+  margin:0;
+  font-family: system-ui, Arial;
+  background: radial-gradient(circle at top, #1a1a1a 0%, #0b0b0b 60%);
+  color:white;
 }
 
 /* HEADER */
-header {
-  padding: 30px;
-  text-align: center;
-  background: linear-gradient(black, #111);
+header{
+  text-align:center;
+  padding:50px 20px 20px;
 }
 
-header h1 {
-  font-size: 42px;
+header h1{
+  font-size:48px;
+  margin:0;
+  letter-spacing:1px;
+}
+
+header p{
+  color:#aaa;
+  margin-top:10px;
 }
 
 /* SEARCH */
-.search-box {
-  text-align: center;
-  margin: 20px;
+.search-box{
+  display:flex;
+  justify-content:center;
+  margin:20px;
 }
 
-.search-box input {
-  padding: 12px;
-  width: 320px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
+.search-box input{
+  width:340px;
+  padding:14px 18px;
+  border-radius:30px;
+  border:1px solid #333;
+  background:#111;
+  color:white;
+  outline:none;
+  transition:0.3s;
 }
 
-/* FILTER */
-.categories {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px;
+.search-box input:focus{
+  border-color:#666;
+  transform:scale(1.02);
 }
 
-.categories button {
-  padding: 10px 18px;
-  border-radius: 20px;
-  border: none;
-  background: #222;
-  color: white;
-  cursor: pointer;
-}
-
-.categories button:hover {
-  background: #444;
-}
-
-/* GRID (Netflix vibe) */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
-  padding: 20px;
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  padding:30px;
 }
 
 /* CARD */
-.card {
-  background: #1a1a1a;
-  border-radius: 14px;
-  overflow: hidden;
-  transition: 0.3s;
+.card{
+  background:#151515;
+  border-radius:16px;
+  overflow:hidden;
+  transition:0.3s;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.05);
 }
 
-.card:hover {
-  transform: scale(1.06);
+.card:hover{
+  transform:scale(1.06);
+  box-shadow:0 20px 50px rgba(0,0,0,0.7);
 }
 
-.card iframe {
-  width: 100%;
-  height: 170px;
-  border: none;
+.card iframe{
+  width:100%;
+  height:180px;
+  border:none;
 }
 
-.card h3 {
-  margin: 10px;
-  font-size: 16px;
-}
-
-.card span {
-  margin: 0 10px 10px;
-  display: block;
-  color: #aaa;
-  font-size: 13px;
-}
-
-.tag {
-  margin: 0 10px 10px;
-  font-size: 11px;
-  color: #00ffcc;
+.card h3{
+  margin:10px 12px;
+  font-size:14px;
+  color:#ddd;
 }
 
 /* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #777;
+footer{
+  text-align:center;
+  padding:30px;
+  color:#666;
+  font-size:12px;
 }
 </style>
+
 </head>
 
 <body>
@@ -124,14 +110,6 @@ footer {
   <input type="text" id="search" placeholder="Kitap ara...">
 </div>
 
-<div class="categories">
-  <button onclick="filter('all')">Tümü</button>
-  <button onclick="filter('roman')">Roman</button>
-  <button onclick="filter('oyku')">Öykü</button>
-  <button onclick="filter('siir')">Şiir</button>
-  <button onclick="filter('unknown')">Diğer</button>
-</div>
-
 <section class="grid" id="grid"></section>
 
 <footer>
@@ -140,56 +118,47 @@ footer {
 
 <script>
 
-/* =========================
-   📦 VİDEO VERİ TABANI
-   ========================= */
-
+/* VİDEOLAR */
 const videos = [
-  {id:"0My5Kwsf_8E", title:"Video 1", author:"Unknown", category:"unknown"},
-  {id:"PZl1l5HQPEw", title:"Video 2", author:"Unknown", category:"unknown"},
-  {id:"2QrnSaKU2xM", title:"Video 3", author:"Unknown", category:"unknown"},
-  {id:"NBdGBmR4L-Q", title:"Video 4", author:"Unknown", category:"unknown"},
-  {id:"L_L51vPvyDU", title:"Video 5", author:"Unknown", category:"unknown"},
-  {id:"rj5wrCWFkuQ", title:"Video 6", author:"Unknown", category:"unknown"},
-  {id:"PCl8tDsAGIY", title:"Video 7", author:"Unknown", category:"unknown"},
-  {id:"HP3A19271RY", title:"Video 8", author:"Unknown", category:"unknown"},
-  {id:"1nW9jwYbVns", title:"Video 9", author:"Unknown", category:"unknown"},
-  {id:"Le6wuK9lIUI", title:"Video 10", author:"Unknown", category:"unknown"},
-  {id:"tDWNQUNyBlU", title:"Video 11", author:"Unknown", category:"unknown"},
-  {id:"MC8-9SIbOF4", title:"Video 12", author:"Unknown", category:"unknown"},
-  {id:"4CswDn_rccY", title:"Video 13", author:"Unknown", category:"unknown"},
-  {id:"_LcOCo-nExY", title:"Video 14", author:"Unknown", category:"unknown"},
-  {id:"C0MRfw84l5U", title:"Video 15", author:"Unknown", category:"unknown"},
-  {id:"QkWeXQY9O04", title:"Video 16", author:"Unknown", category:"unknown"},
-  {id:"je66Cxr38fM", title:"Video 17", author:"Unknown", category:"unknown"},
-  {id:"fJlQt3Z9hc4", title:"Video 18", author:"Unknown", category:"unknown"},
-  {id:"z_qpFZucEkQ", title:"Video 19", author:"Unknown", category:"unknown"},
-  {id:"KLh2rQeH7mw", title:"Video 20", author:"Unknown", category:"unknown"},
-  {id:"d0Nkyd2Mbh8", title:"Video 21", author:"Unknown", category:"unknown"},
-  {id:"uDXlzExNtZg", title:"Video 22", author:"Unknown", category:"unknown"},
-  {id:"fEY6YobgMuw", title:"Video 23", author:"Unknown", category:"unknown"},
-  {id:"4JtYLy_e_XY", title:"Video 24", author:"Unknown", category:"unknown"},
-  {id:"KMRGg31WCLU", title:"Video 25", author:"Unknown", category:"unknown"},
-  {id:"fQH2U1uMH-0", title:"Video 26", author:"Unknown", category:"unknown"},
-  {id:"BTxJuztfJ6s", title:"Video 27", author:"Unknown", category:"unknown"},
+  {id:"0My5Kwsf_8E"},
+  {id:"PZl1l5HQPEw"},
+  {id:"2QrnSaKU2xM"},
+  {id:"NBdGBmR4L-Q"},
+  {id:"L_L51vPvyDU"},
+  {id:"rj5wrCWFkuQ"},
+  {id:"PCl8tDsAGIY"},
+  {id:"HP3A19271RY"},
+  {id:"1nW9jwYbVns"},
+  {id:"Le6wuK9lIUI"},
+  {id:"tDWNQUNyBlU"},
+  {id:"MC8-9SIbOF4"},
+  {id:"4CswDn_rccY"},
+  {id:"_LcOCo-nExY"},
+  {id:"C0MRfw84l5U"},
+  {id:"QkWeXQY9O04"},
+  {id:"je66Cxr38fM"},
+  {id:"fJlQt3Z9hc4"},
+  {id:"z_qpFZucEkQ"},
+  {id:"KLh2rQeH7mw"},
+  {id:"d0Nkyd2Mbh8"},
+  {id:"uDXlzExNtZg"},
+  {id:"fEY6YobgMuw"},
+  {id:"4JtYLy_e_XY"},
+  {id:"KMRGg31WCLU"},
+  {id:"fQH2U1uMH-0"},
+  {id:"BTxJuztfJ6s"}
 ];
 
-/* =========================
-   🎬 RENDER
-   ========================= */
-
+/* RENDER */
 const grid = document.getElementById("grid");
 
 function render(list){
   grid.innerHTML = "";
 
-  list.forEach(v => {
+  list.forEach(v=>{
     grid.innerHTML += `
-      <div class="card" data-category="${v.category}">
-        <iframe src="https://www.youtube.com/embed/${v.id}"></iframe>
-        <h3>${v.title}</h3>
-        <span>${v.author}</span>
-        <div class="tag">${v.category}</div>
+      <div class="card">
+        <iframe src="https://www.youtube.com/embed/${v.id}" allowfullscreen></iframe>
       </div>
     `;
   });
@@ -197,29 +166,16 @@ function render(list){
 
 render(videos);
 
-/* =========================
-   🔍 SEARCH
-   ========================= */
-
-document.getElementById("search").addEventListener("input", e => {
+/* SEARCH */
+document.getElementById("search").addEventListener("input",e=>{
   let val = e.target.value.toLowerCase();
 
   let filtered = videos.filter(v =>
-    v.title.toLowerCase().includes(val) ||
-    v.author.toLowerCase().includes(val)
+    v.id.toLowerCase().includes(val)
   );
 
   render(filtered);
 });
-
-/* =========================
-   🎯 FILTER
-   ========================= */
-
-function filter(cat){
-  if(cat === "all") return render(videos);
-  render(videos.filter(v => v.category === cat));
-}
 
 </script>
 
