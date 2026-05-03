@@ -6,110 +6,117 @@
 <title>Bir Sayfa Daha</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  font-family: Arial, sans-serif;
   background: #0b0b0b;
-  color: #fff;
-}
-
-/* HEADER */
-header {
-  padding: 20px;
-  text-align: center;
-  background: linear-gradient(black, #111);
-}
-
-header h1 {
-  font-size: 42px;
-}
-
-header p {
-  color: #aaa;
-}
-
-/* SEARCH */
-.search-box {
-  text-align: center;
-  margin: 20px;
-}
-
-.search-box input {
-  padding: 12px;
-  width: 300px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-}
-
-/* CATEGORY */
-.categories {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px;
-  flex-wrap: wrap;
-}
-
-.categories button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background: #222;
   color: white;
-  cursor: pointer;
 }
 
-.categories button:hover {
-  background: #444;
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+/* TOP BAR */
+.nav {
+  display: flex;
+  justify-content: space-between;
   padding: 20px;
+  background: rgba(0,0,0,0.8);
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #e50914;
+}
+
+/* HERO */
+.hero {
+  height: 60vh;
+  background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') center/cover;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #0b0b0b, transparent);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.hero p {
+  color: #ccc;
+}
+
+/* ROWS */
+.row {
+  margin: 20px;
+}
+
+.row h2 {
+  margin-left: 10px;
+}
+
+/* SCROLL SECTION */
+.row-posters {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px;
+}
+
+.row-posters::-webkit-scrollbar {
+  display: none;
 }
 
 /* CARD */
 .card {
+  min-width: 220px;
   background: #1a1a1a;
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
-  transition: 0.3s;
+  transition: transform 0.3s;
+  flex-shrink: 0;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .card iframe {
   width: 100%;
-  height: 180px;
+  height: 130px;
 }
 
-.card h3 {
-  padding: 10px;
+.card p {
+  padding: 8px;
+  font-size: 14px;
+  color: #ccc;
 }
 
-.card span {
-  padding: 0 10px 10px;
-  display: block;
-  color: #aaa;
-}
-
-/* FOOTER */
-footer {
+/* SEARCH */
+.search {
   text-align: center;
-  padding: 20px;
-  color: #777;
+  margin: 20px;
+}
+
+.search input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
 }
 </style>
 
@@ -117,73 +124,112 @@ footer {
 
 <body>
 
-<header>
-  <h1>📖 Bir Sayfa Daha</h1>
-  <p>Sesli kitaplar • Hikayeler • Klasikler</p>
-</header>
+<div class="nav">
+  <div class="logo">Bir Sayfa Daha</div>
+</div>
 
-<div class="search-box">
+<div class="hero">
+  <div class="hero-content">
+    <h1>Sesli Kitap Dünyası</h1>
+    <p>Franz Kafka, Sabahattin Ali ve daha fazlası</p>
+  </div>
+</div>
+
+<div class="search">
   <input type="text" id="search" placeholder="Kitap ara...">
 </div>
 
-<div class="categories">
-  <button onclick="filterCategory('all')">Tümü</button>
-  <button onclick="filterCategory('roman')">Roman</button>
-  <button onclick="filterCategory('oyku')">Öykü</button>
-  <button onclick="filterCategory('klasik')">Klasik</button>
+<!-- ROW 1 -->
+<div class="row">
+  <h2>📚 Sesli Kitaplar</h2>
+  <div class="row-posters">
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/0My5Kwsf_8E"></iframe>
+      <p>Dönüşüm - Kafka</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/PZl1l5HQPEw"></iframe>
+      <p>Sesli Kitap 2</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/2QrnSaKU2xM"></iframe>
+      <p>Sesli Kitap 3</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/NBdGBmR4L-Q"></iframe>
+      <p>Sesli Kitap 4</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/L_L51vPvyDU"></iframe>
+      <p>Sesli Kitap 5</p>
+    </div>
+
+  </div>
 </div>
 
-<section class="grid" id="videoGrid">
+<!-- ROW 2 -->
+<div class="row">
+  <h2>📖 Öyküler</h2>
+  <div class="row-posters">
 
-  <div class="card" data-category="roman">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-    <h3>Dönüşüm</h3>
-    <span>Franz Kafka</span>
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/rj5wrCWFkuQ"></iframe>
+      <p>Öykü 1</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/PCl8tDsAGIY"></iframe>
+      <p>Öykü 2</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/HP3A19271RY"></iframe>
+      <p>Öykü 3</p>
+    </div>
+
   </div>
+</div>
 
-  <div class="card" data-category="oyku">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-    <h3>Kağnı</h3>
-    <span>Sabahattin Ali</span>
+<!-- ROW 3 -->
+<div class="row">
+  <h2>📕 Klasikler</h2>
+  <div class="row-posters">
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/1nW9jwYbVns"></iframe>
+      <p>Klasik 1</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/Le6wuK9lIUI"></iframe>
+      <p>Klasik 2</p>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/tDWNQUNyBlU"></iframe>
+      <p>Klasik 3</p>
+    </div>
+
   </div>
-
-  <div class="card" data-category="klasik">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-    <h3>Bilinmeyen Bir Kadının Mektubu</h3>
-    <span>Stefan Zweig</span>
-  </div>
-
-</section>
-
-<footer>
-  © 2026 Bir Sayfa Daha - Yusuf Kızılca
-</footer>
+</div>
 
 <script>
-const searchInput = document.getElementById("search");
-const cards = document.querySelectorAll(".card");
+const search = document.getElementById("search");
 
-searchInput.addEventListener("keyup", function () {
-  let value = this.value.toLowerCase();
+search.addEventListener("input", function() {
+  const value = this.value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
 
   cards.forEach(card => {
-    let text = card.innerText.toLowerCase();
+    const text = card.innerText.toLowerCase();
     card.style.display = text.includes(value) ? "block" : "none";
   });
 });
-
-function filterCategory(category) {
-  cards.forEach(card => {
-    if (category === "all") {
-      card.style.display = "block";
-    } else {
-      card.style.display =
-        card.getAttribute("data-category") === category
-          ? "block"
-          : "none";
-    }
-  });
-}
 </script>
 
 </body>
