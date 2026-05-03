@@ -9,25 +9,22 @@
 body{
   margin:0;
   font-family: system-ui, Arial;
-  background: radial-gradient(circle at top, #1a1a1a 0%, #0b0b0b 60%);
+  background: radial-gradient(circle at top, #2b3a67, #0b0b0b 70%);
   color:white;
 }
 
 /* HEADER */
 header{
   text-align:center;
-  padding:50px 20px 20px;
+  padding:40px 20px;
 }
 
 header h1{
-  font-size:48px;
-  margin:0;
-  letter-spacing:1px;
+  font-size:42px;
 }
 
 header p{
   color:#aaa;
-  margin-top:10px;
 }
 
 /* SEARCH */
@@ -38,42 +35,34 @@ header p{
 }
 
 .search-box input{
-  width:340px;
-  padding:14px 18px;
-  border-radius:30px;
-  border:1px solid #333;
+  width:320px;
+  padding:12px 16px;
+  border-radius:25px;
+  border:none;
+  outline:none;
   background:#111;
   color:white;
-  outline:none;
-  transition:0.3s;
-}
-
-.search-box input:focus{
-  border-color:#666;
-  transform:scale(1.02);
 }
 
 /* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
+  gap:25px;   /* 👈 videolar arası boşluk */
   padding:30px;
 }
 
 /* CARD */
 .card{
   background:#151515;
-  border-radius:16px;
+  border-radius:14px;
   overflow:hidden;
   transition:0.3s;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
-  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
 .card:hover{
-  transform:scale(1.06);
-  box-shadow:0 20px 50px rgba(0,0,0,0.7);
+  transform:scale(1.05);
 }
 
 .card iframe{
@@ -82,18 +71,11 @@ header p{
   border:none;
 }
 
-.card h3{
-  margin:10px 12px;
-  font-size:14px;
-  color:#ddd;
-}
-
 /* FOOTER */
 footer{
   text-align:center;
-  padding:30px;
-  color:#666;
-  font-size:12px;
+  padding:20px;
+  color:#777;
 }
 </style>
 
