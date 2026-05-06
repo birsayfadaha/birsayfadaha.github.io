@@ -98,29 +98,25 @@ footer{
 
 /* 🔴 BURAYI DOLDUR */
 const CHANNEL_ID = "UC76ZL900DvgEjuWcMYMyEjQ";
+
 const RSS = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
 async function load(){
-  const res = await fetch(RSS);
-  const text = await res.text();
 
-  const parser = new DOMParser();
-  const xml = parser.parseFromString(text, "text/xml");
+  // 🔥 proxy kullanıyoruz (CORS sorunu bitiyor)
+  const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(RSS));
 
-  const entries = xml.querySelectorAll("entry");
+  const data = await res.json();
 
-  let videos = [];
+  if(!data.items){
+    console.log("Veri gelmedi:", data);
+    return;
+  }
 
-  entries.forEach(e=>{
-    const link = e.querySelector("link").getAttribute("href");
-
-    // video ID çek
-    const videoId = link.split("v=")[1];
-
-    const title = e.querySelector("title").textContent;
-
-    videos.push({id: videoId, title});
-  });
+  const videos = data.items.map(v => ({
+    id: v.link.split("v=")[1],
+    title: v.title
+  }));
 
   const latest = videos.slice(0, 8);
   const shorts = videos.filter(v => v.title.toLowerCase().includes("short")).slice(0, 6);
