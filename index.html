@@ -16,6 +16,7 @@ body{
   background-position: center;
   background-attachment: fixed;
 }
+
 /* HEADER */
 header{
   text-align:center;
@@ -27,39 +28,17 @@ header{
 
 header h1{
   font-size:48px;
-  letter-spacing:1px;
-  text-shadow:0 0 20px rgba(120,150,255,0.4);
 }
 
 header p{
   color:#aaa;
 }
 
-/* SECTION TITLE */
+/* TITLE */
 .section-title{
   text-align:center;
   font-size:34px;
   margin-top:60px;
-  margin-bottom:10px;
-  font-weight:600;
-  position:relative;
-}
-
-.section-title::after{
-  content:"";
-  display:block;
-  width:120px;
-  height:2px;
-  margin:10px auto 0;
-  background: linear-gradient(90deg, transparent, #6ea8ff, transparent);
-}
-
-/* SUB TITLE */
-.sub-title{
-  text-align:center;
-  font-size:22px;
-  margin-top:20px;
-  color:#ccc;
 }
 
 /* GRID */
@@ -75,30 +54,24 @@ header p{
   background:#141414;
   border-radius:16px;
   overflow:hidden;
-  transition:0.25s;
   box-shadow:0 10px 30px rgba(0,0,0,0.6);
-  border:1px solid rgba(255,255,255,0.05);
+  transition:0.3s;
 }
 
 .card:hover{
-  transform:scale(1.06);
-  box-shadow:0 15px 40px rgba(110,168,255,0.25);
+  transform:scale(1.05);
 }
 
 .card iframe{
   width:100%;
   height:180px;
   border:none;
-  filter: contrast(1.05) saturate(1.1);
 }
 
-/* FOOTER */
 footer{
   text-align:center;
   padding:30px;
-  color:#666;
-  border-top:1px solid rgba(255,255,255,0.08);
-  margin-top:40px;
+  color:#777;
 }
 </style>
 
@@ -111,26 +84,11 @@ footer{
   <p>Sesli kitaplar • Hikayeler • Klasikler</p>
 </header>
 
-<!-- ÖZETLER -->
-<h2 class="section-title">Sesli Kitap Özetleri</h2>
-<section class="grid" id="ozetler"></section>
+<h2 class="section-title">🔥 Popüler / Güncel Videolar</h2>
+<section class="grid" id="videos"></section>
 
-<!-- ROMANLAR -->
-<h2 class="section-title">Sesli Romanlar</h2>
-<section class="grid" id="romanlar"></section>
-
-<!-- ÖYKÜLER -->
-<h2 class="section-title">Sesli Öyküler</h2>
-<section class="grid" id="oykuler"></section>
-
-<!-- ŞİİRLER -->
-<h2 class="section-title">Sesli Şiirler</h2>
-
-<h3 class="sub-title">Videolar</h3>
-<section class="grid" id="siir-videolar"></section>
-
-<h3 class="sub-title">Shorts</h3>
-<section class="grid" id="siir-shorts"></section>
+<h2 class="section-title">📱 Shorts</h2>
+<section class="grid" id="shorts"></section>
 
 <footer>
   © 2026 Bir Sayfa Daha - Yusuf Kızılca
@@ -138,74 +96,43 @@ footer{
 
 <script>
 
-/* ===== VERİLER ===== */
+/* 🔴 BURAYI DOLDUR */
+const CHANNEL_ID = "UC76ZL900DvgEjuWcMYMyEjQ";
 
-const romanlar = [
-  {id:"Za4jQCKDlFs"},
-  {id:"L_L51vPvyDU"},
-  {id:"rj5wrCWFkuQ"},
-  {id:"HP3A19271RY"},
-  {id:"1nW9jwYbVns"},
-  {id:"NBdGBmR4L-Q"},
-  {id:"PZl1l5HQPEw"},
-  {id:"je66Cxr38fM"},
-  {id:"KLh2rQeH7mw"},
-  {id:"fEY6YobgMuw"},
-  {id:"KMRGg31WCLU"},
-  {id:"_LcOCo-nExY"},
-  {id:"4CswDn_rccY"},
-  {id:"MC8-9SIbOF4"},
-  {id:"PCl8tDsAGIY"}
-];
+const RSS = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
-const oykuler = [
-  {id:"Le6wuK9lIUI"},
-  {id:"tDWNQUNyBlU"},
-  {id:"QkWeXQY9O04"},
-  {id:"z_qpFZucEkQ"},
-  {id:"uDXlzExNtZg"},
-  {id:"4JtYLy_e_XY"},
-  {id:"fQH2U1uMH-0"}
-];
+async function load(){
+  const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(RSS));
+  const data = await res.json();
 
-const ozetler = [
-  {id:"uU9DzcNst0k"},
-  {id:"0My5Kwsf_8E"},
-  {id:"NBdGBmR4L-Q"}
-];
+  const videos = data.items;
 
-const siirVideolar = [
-  {id:"2QrnSaKU2xM"},
-  {id:"C0MRfw84l5U"},
-  {id:"fJlQt3Z9hc4"},
-  {id:"d0Nkyd2Mbh8"}
-];
+  // 🔥 SON 8 VİDEO
+  const latest = videos.slice(0, 8);
 
-const siirShorts = [
-  {id:"rYIjp0pj0yk"}
-];
+  // 📱 SHORTS
+  const shorts = videos.filter(v => v.title.toLowerCase().includes("#shorts")).slice(0, 6);
 
-/* ===== RENDER ===== */
+  render(latest, "videos");
+  render(shorts, "shorts");
+}
 
-function render(list, targetId){
-  const grid = document.getElementById(targetId);
-  grid.innerHTML = "";
+function render(list, id){
+  const el = document.getElementById(id);
+  el.innerHTML = "";
 
   list.forEach(v=>{
-    grid.innerHTML += `
+    const videoId = v.link.split("v=")[1];
+
+    el.innerHTML += `
       <div class="card">
-        <iframe src="https://www.youtube.com/embed/${v.id}" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
       </div>
     `;
   });
 }
 
-/* ÇALIŞTIR */
-render(ozetler, "ozetler");
-render(romanlar, "romanlar");
-render(oykuler, "oykuler");
-render(siirVideolar, "siir-videolar");
-render(siirShorts, "siir-shorts");
+load();
 
 </script>
 
