@@ -27,28 +27,25 @@ header p{
   color:#aaa;
 }
 
-/* SEARCH */
-.search-box{
-  display:flex;
-  justify-content:center;
-  margin:20px;
+/* BAŞLIKLAR */
+.section-title{
+  text-align:center;
+  font-size:32px;
+  margin-top:40px;
 }
 
-.search-box input{
-  width:320px;
-  padding:12px 16px;
-  border-radius:25px;
-  border:none;
-  outline:none;
-  background:#111;
-  color:white;
+.sub-title{
+  text-align:center;
+  font-size:22px;
+  margin-top:20px;
+  color:#ccc;
 }
 
 /* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:25px;   /* 👈 videolar arası boşluk */
+  gap:25px;
   padding:30px;
 }
 
@@ -88,55 +85,79 @@ footer{
   <p>Sesli kitaplar • Hikayeler • Klasikler</p>
 </header>
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Kitap ara...">
-</div>
+<!-- SESLİ ROMANLAR -->
+<h2 class="section-title">Sesli Romanlar</h2>
+<section class="grid" id="romanlar"></section>
 
-<section class="grid" id="grid"></section>
+<!-- SESLİ ÖYKÜLER -->
+<h2 class="section-title">Sesli Öyküler</h2>
+<section class="grid" id="oykuler"></section>
+
+<!-- SESLİ ŞİİRLER -->
+<h2 class="section-title">Sesli Şiirler</h2>
+
+<h3 class="sub-title">Videolar</h3>
+<section class="grid" id="siir-videolar"></section>
+
+<h3 class="sub-title">Shorts</h3>
+<section class="grid" id="siir-shorts"></section>
 
 <footer>
-  © 2026 Bir Sayfa Daha  -  Yusuf Kızılca
+  © 2026 Bir Sayfa Daha - Yusuf Kızılca
 </footer>
 
 <script>
 
-/* VİDEOLAR */
-const videos = [
+/* ===== VERİLER ===== */
+
+/* 10 ROMAN */
+const romanlar = [
   {id:"Za4jQCKDlFs"},
-  {id:"uU9DzcNst0k"},
-  {id:"0My5Kwsf_8E"},
-  {id:"PZl1l5HQPEw"},
-  {id:"2QrnSaKU2xM"},
-  {id:"NBdGBmR4L-Q"},
   {id:"L_L51vPvyDU"},
   {id:"rj5wrCWFkuQ"},
-  {id:"PCl8tDsAGIY"},
   {id:"HP3A19271RY"},
   {id:"1nW9jwYbVns"},
-  {id:"Le6wuK9lIUI"},
-  {id:"tDWNQUNyBlU"},
-  {id:"MC8-9SIbOF4"},
-  {id:"4CswDn_rccY"},
-  {id:"_LcOCo-nExY"},
-  {id:"C0MRfw84l5U"},
-  {id:"QkWeXQY9O04"},
+  {id:"NBdGBmR4L-Q"},
+  {id:"PZl1l5HQPEw"},
   {id:"je66Cxr38fM"},
-  {id:"fJlQt3Z9hc4"},
-  {id:"z_qpFZucEkQ"},
   {id:"KLh2rQeH7mw"},
-  {id:"d0Nkyd2Mbh8"},
-  {id:"uDXlzExNtZg"},
-  {id:"fEY6YobgMuw"},
-  {id:"4JtYLy_e_XY"},
+  {id:"fEY6YobgMuw"}
   {id:"KMRGg31WCLU"},
-  {id:"fQH2U1uMH-0"},
-  {id:"BTxJuztfJ6s"}
+  {id:"0gcJCd4KAYcqIYzv"},
+  {id:"0gcJCd4KAYcqIYzv"},
+  {id:"4CswDn_rccY"},
+  {id:"MC8-9SIbOF4"},
+  {id:"PCl8tDsAGIY"}
 ];
 
-/* RENDER */
-const grid = document.getElementById("grid");
+/* 10 ÖYKÜ */
+const oykuler = [
+  {id:"Le6wuK9lIUI"},
+  {id:"tDWNQUNyBlU"},
+  {id:"QkWeXQY9O04"},
+  {id:"z_qpFZucEkQ"},
+  {id:"0gcJCd4KAYcqIYzv"},
+  {id:"4JtYLy_e_XY"},
+  {id:"fQH2U1uMH-0"}
+];
 
-function render(list){
+/* 5 ŞİİR VİDEO */
+const siirVideolar = [
+  {id:"2QrnSaKU2xM"},
+  {id:"C0MRfw84l5U"},
+  {id:"fJlQt3Z9hc4"},
+  {id:"d0Nkyd2Mbh8"}
+];
+
+/* 5 ŞİİR SHORT */
+const siirShorts = [
+  {id:"rYIjp0pj0yk"},
+];
+
+/* ===== RENDER ===== */
+
+function render(list, targetId){
+  const grid = document.getElementById(targetId);
   grid.innerHTML = "";
 
   list.forEach(v=>{
@@ -148,18 +169,11 @@ function render(list){
   });
 }
 
-render(videos);
-
-/* SEARCH */
-document.getElementById("search").addEventListener("input",e=>{
-  let val = e.target.value.toLowerCase();
-
-  let filtered = videos.filter(v =>
-    v.id.toLowerCase().includes(val)
-  );
-
-  render(filtered);
-});
+/* ÇALIŞTIR */
+render(romanlar, "romanlar");
+render(oykuler, "oykuler");
+render(siirVideolar, "siir-videolar");
+render(siirShorts, "siir-shorts");
 
 </script>
 
